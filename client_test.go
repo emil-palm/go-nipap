@@ -75,6 +75,15 @@ func Test_Add_Prefix_From_Prefix(t *testing.T) {
 
 }
 
+func Test_Smart_Search_prefix(t *testing.T) {
+	c := NewTestClient(t)
+	err, prefixes := c.PrefixSmartSearch("172.16.5.1",nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Fatalf("%+v\n", prefixes)
+}
+
 func NewTestClient(t *testing.T) (*Client) {
 	err,c := NewClient("http://localhost:1337/RPC2","admin@local","foobar")
 	if err != nil {

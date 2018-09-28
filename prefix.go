@@ -51,20 +51,7 @@ func (p Prefix) stripped () map[string]interface{} {
 	return structs.Map(p)
 }
 
-func (client *Client) ListPrefix(spec map[string]string) (error,[]Prefix) {
-	args := make(map[string]interface{},0)
-	if spec == nil {
-		spec = make(map[string]string)
-	}
-	args["prefix"] = spec
 
-	prefixes := make([]Prefix, 0)
-	err := client.Run("list_prefix",args, &prefixes)
-	if err != nil {
-		return err, nil
-	}
-	return nil, prefixes
-}
 
 func (client *Client) addPrefix(prefix Prefix, spec map[string]interface{}) (error, Prefix) {
 	args := make(map[string]interface{},0)
@@ -101,4 +88,36 @@ func (client *Client) AddPrefixFromPrefix(newPrefix, parentPrefix Prefix, prefix
 	spec.Set("prefix_length", prefixLength)
 
 	return client.addPrefix(newPrefix,spec)
+}
+
+func (client *Client) ListPrefix(spec map[string]string) (error,[]Prefix) {
+	args := make(map[string]interface{},0)
+	if spec == nil {
+		spec = make(map[string]string)
+	}
+	args["prefix"] = spec
+
+	prefixes := make([]Prefix, 0)
+	err := client.Run("list_prefix",args, &prefixes)
+	if err != nil {
+		return err, nil
+	}
+	return nil, prefixes
+}
+
+func (client *Client) PrefixSmartSearch(query string, options map[string]interface{}) (error,[]Prefix) {
+	args := make(map[string]interface{},0)
+	args["query_string"] = query
+
+	if options != nil {
+		args["search_options"] = options
+	}
+
+	response := struct{
+		Error bool `xmlrpc:"error"`
+		Result []Prefix `xmlrpc:"result"`
+	}{}
+
+	err := client.Run("smart_search_prefix", args, &response)
+	return err, response.Result
 }
