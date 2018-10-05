@@ -4,6 +4,7 @@ package nipap
 import (
 	"time"
 	"github.com/fatih/structs"
+	sq "github.com/mrevilme/go-nipap/search_query"
 	"fmt"
 )
 
@@ -120,5 +121,24 @@ func (client *Client) PrefixSmartSearch(query string, options *SearchOptions) (e
 	}{}
 
 	err := client.Run("smart_search_prefix", args, &response)
+	return err, response.Result
+}
+
+func (client *Client) SearchPrefix(query sq.SearchQuery, options *SearchOptions) (error, []Prefix) {
+	args := make(map[string]interface{},0)
+	args["query"] = sq.Map(query)
+
+	if options != nil {
+		args["search_options"] = structs.Map(options)
+	}
+
+	response := struct{
+		Error bool `xmlrpc:"error"`
+		Result []Prefix `xmlrpc:"result"`
+	}{}
+
+	fmt.Printf("%+v\n", args)
+
+	err := client.Run("search_prefix", args, &response)
 	return err, response.Result
 }

@@ -2,6 +2,7 @@ package nipap
 import (
 	"testing"
 	"net"
+	sq "github.com/mrevilme/go-nipap/search_query"
 )
 
 func Test_CreateClient(t *testing.T) {
@@ -89,7 +90,29 @@ func Test_Smart_Search_Prefix_With_Options(t *testing.T) {
 	c := NewTestClient(t)
 	o := SearchOptions{}
 	o.ParentsDepth = 1
-	err, prefixes := c.PrefixSmartSearch("172.16.5.1",&o)
+	err, prefixes := c.PrefixSmartSearch("172.16.5.1/32 #foo #bar",&o)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Fatalf("%+v\n", prefixes)
+}
+
+func Test_Search_Prefix(t *testing.T) {
+	c := NewTestClient(t)
+	o := SearchOptions{}
+	o.ParentsDepth = 0
+
+	// Query build
+	prefix := sq.Contains("prefix","172.16.5.1/32")
+	typeSearch := sq.Equals("type","assignment")
+	tagCpeSearch := sq.Or(sq.EqualsAny("tags","foobar"),sq.EqualsAny("inherited_tags","foobar"))
+	tagOmsSearch := sq.Or(sq.EqualsAny("tags","bar"),sq.EqualsAny("inherited_tags","bar"))
+	tagsSearch := sq.And(tagCpeSearch,tagOmsSearch)
+
+	query := sq.And(tagsSearch,sq.And(prefix,typeSearch))
+	query = tagCpeSearch
+
+	err, prefixes := c.SearchPrefix(query,&o)
 	if err != nil {
 		t.Fatal(err)
 	}
