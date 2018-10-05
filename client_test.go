@@ -9,8 +9,9 @@ func Test_CreateClient(t *testing.T) {
 }
 
 func Test_Call(t *testing.T) {
-	_,c := NewClient("http://localhost:1337/RPC2","admin@local","foobar")
-	c.Call("echo", nil, nil)
+	_,c := NewClient("http://localhost:1337/RPC2","svc_oms@local","svc_oms")
+	x := c.Run("echo", map[string]interface{}{"message":"foobar"}, nil)
+	t.Fatal(x)
 }
 
 func Test_List_All_Prefixes(t *testing.T) {
@@ -83,6 +84,18 @@ func Test_Smart_Search_prefix(t *testing.T) {
 	}
 	t.Fatalf("%+v\n", prefixes)
 }
+
+func Test_Smart_Search_Prefix_With_Options(t *testing.T) {
+	c := NewTestClient(t)
+	o := SearchOptions{}
+	o.ParentsDepth = 1
+	err, prefixes := c.PrefixSmartSearch("172.16.5.1",&o)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Fatalf("%+v\n", prefixes)
+}
+
 
 func NewTestClient(t *testing.T) (*Client) {
 	err,c := NewClient("http://localhost:1337/RPC2","admin@local","foobar")

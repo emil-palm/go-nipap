@@ -7,6 +7,7 @@ import (
 	"fmt"
 )
 
+
 type PrefixType string
 
 const (
@@ -105,12 +106,12 @@ func (client *Client) ListPrefix(spec map[string]string) (error,[]Prefix) {
 	return nil, prefixes
 }
 
-func (client *Client) PrefixSmartSearch(query string, options map[string]interface{}) (error,[]Prefix) {
+func (client *Client) PrefixSmartSearch(query string, options *SearchOptions) (error,[]Prefix) {
 	args := make(map[string]interface{},0)
 	args["query_string"] = query
 
 	if options != nil {
-		args["search_options"] = options
+		args["search_options"] = structs.Map(options)
 	}
 
 	response := struct{
