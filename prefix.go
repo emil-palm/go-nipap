@@ -18,36 +18,36 @@ const (
 )
 
 type Prefix struct {
-	Family int `xmlrpc:"family" structs:",omitempty"`
-	Vrf string `xmlrpc:"vrf" structs:",omitempty"`
-	VrfId int `xmlrpc:"vrf_id" structs:",omitempty"`
+	Family int `xmlrpc:"family" structs:"family,omitempty"`
+	Vrf string `xmlrpc:"vrf" structs:"vrf,omitempty"`
+	VrfId int `xmlrpc:"vrf_id" structs:"vrf_id,omitempty"`
 	Prefix string `xmlrpc:"prefix" structs:"prefix,omitempty"`
-	DisplayPrefix string `xmlrpc:"display_prefix" structs:",omitempty"`
+	DisplayPrefix string `xmlrpc:"display_prefix" structs:"display_prefix,omitempty"`
 	Description string `xmlrpc:"description" structs:"description,omitempty"`
-	Comment string `xmlrpc:"comment" structs:",omitempty"`
-	Node string `xmlrpc:"node" structs:",omitempty"`
-	Pool string `xmlrpc:"pool" structs:",omitempty"`
+	Comment string `xmlrpc:"comment" structs:"comment,omitempty"`
+	Node string `xmlrpc:"node" structs:"node,omitempty"`
+	Pool string `xmlrpc:"pool" structs:"pool,omitempty"`
 	Type PrefixType `xmlrpc:"type" structs:"type,omitempty"`
-	Indent int `xmlrpc:"indent" structs:",omitempty"`
-	Id int `xmlrpc:"id" structs:",omitempty"`
-	Country string`xmlrpc:"country" structs:",omitempty"`
-	ExternalKey string `xmlrpc:"external_key" structs:",omitempty"`
-	OrderId int `xmlrpc:"order_id" structs:",omitempty"`
-	CustomerId int `xmlrpc:"customer_id" structs:",omitempty"`
-	AuthoritativeSource string `xmlrpc:"authoritative_source" structs:",omitempty"`
-	AlarmPriority string `xmlrpc:"alarm_priority" structs:",omitempty"`
-	Monitor bool `xmlrpc:"monitor" structs:",omitempty"`
-	Display bool `xmlrpc:"display" structs:",omitempty"`
-	Match bool `xmlrpc:"match" structs:",omitempty"`
-	Children int `xmlrpc:"children" structs:",omitempty"`
-	Vlan int `xmlrpc:"vlan" structs:",omitempty"`
-	Added time.Time `xmlrpc:"added" structs:",omitempty"`
-	LastModified time.Time `xmlrpc:"last_modified" structs:",omitempty"`
-	TotalAddresses string `xmlrpc:"total_addresses" structs:",omitempty"`
-	UsedAddreses string `xmlrpc:"used_addresses" structs:",omitempty"`
-	FreeAddreses string `xmlrpc:"free_addresses" structs:",omitempty"`
-	Status string `xmlrpc:"status" structs:",omitempty"`
-	Expires string `xmlrpc:"expires" structs:",omitempty"`
+	Indent int `xmlrpc:"indent" structs:"indent,omitempty"`
+	Id int `xmlrpc:"id" structs:"id,omitempty"`
+	Country string`xmlrpc:"country" structs:"country,omitempty"`
+	ExternalKey string `xmlrpc:"external_key" structs:"external_key,omitempty"`
+	OrderId int `xmlrpc:"order_id" structs:"order_id,omitempty"`
+	CustomerId int `xmlrpc:"customer_id" structs:"customer_id,omitempty"`
+	AuthoritativeSource string `xmlrpc:"authoritative_source" structs:"authoritative_source,omitempty"`
+	AlarmPriority string `xmlrpc:"alarm_priority" structs:"alarm_priority,omitempty"`
+	Monitor bool `xmlrpc:"monitor" structs:"monitor,omitempty"`
+	Display bool `xmlrpc:"display" structs:"display,omitempty"`
+	Match bool `xmlrpc:"match" structs:"match,omitempty"`
+	Children int `xmlrpc:"children" structs:"children,omitempty"`
+	Vlan int `xmlrpc:"vlan" structs:"vlan,omitempty"`
+	Added time.Time `xmlrpc:"added" structs:"added,omitempty"`
+	LastModified time.Time `xmlrpc:"last_modified" structs:"last_modified,omitempty"`
+	TotalAddresses string `xmlrpc:"total_addresses" structs:"total_addresses,omitempty"`
+	UsedAddreses string `xmlrpc:"used_addresses" structs:"used_addresses,omitempty"`
+	FreeAddreses string `xmlrpc:"free_addresses" structs:"free_addresses,omitempty"`
+	Status string `xmlrpc:"status" structs:"status,omitempty"`
+	Expires string `xmlrpc:"expires" structs:"expires,omitempty"`
 }
 
 func (p Prefix) stripped () map[string]interface{} {
