@@ -138,8 +138,6 @@ func (client *Client) SearchPrefix(query sq.SearchQuery, options *SearchOptions)
 		Result []Prefix `xmlrpc:"result"`
 	}{}
 
-	fmt.Printf("%+v\n", args)
-
 	err := client.Run("search_prefix", args, &response)
 	return err, response.Result
 }
