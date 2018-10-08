@@ -14,6 +14,7 @@ type PrefixType string
 const (
         PrefixTypeAssignment                  PrefixType	= "assignment"
         PrefixTypeReservation					= "reservation"
+        PrefixTypeHost						= "host"
 )
 
 type Prefix struct {
