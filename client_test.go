@@ -119,6 +119,16 @@ func Test_Search_Prefix(t *testing.T) {
 	t.Fatalf("%+v\n", prefixes)
 }
 
+func Test_DeletePrefix(t *testing.T) {
+	c := NewTestClient(t)
+	prefix := Prefix{}
+	prefix.Id = 95
+	err := c.DeletePrefix(prefix,false)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
 
 func NewTestClient(t *testing.T) (*Client) {
 	err,c := NewClient("http://localhost:1337/RPC2","admin@local","foobar")

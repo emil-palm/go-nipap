@@ -141,3 +141,13 @@ func (client *Client) SearchPrefix(query sq.SearchQuery, options *SearchOptions)
 	err := client.Run("search_prefix", args, &response)
 	return err, response.Result
 }
+
+func (client *Client) DeletePrefix(prefix Prefix, recursive bool) error {
+	args := make(map[string]interface{},0)
+	args["prefix"] = structs.Map(prefix)
+	args["recursive"] = recursive
+
+	err := client.Run("remove_prefix", args, nil)
+	return err
+}
+
